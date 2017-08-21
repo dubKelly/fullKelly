@@ -2,17 +2,21 @@ import React from "react";
 
 export default class NumOfDecksInput extends React.Component {
 
-	handleChange(e) {
-		const numOfDecks = e.target.value;
-		this.props.setNumOfDecks(numOfDecks);
+	selectDeckOption(e) {
+		const option = e.target;
+		this.props.setNumOfDecks(option.innerHTML);
+		option.classList.add("selected");
 	}
 
 	render() {
 		return (
-			<input 
-				value={this.props.numOfDecks}
-				onChange={this.handleChange.bind(this)}
-			/>
+			<div>
+				<span className="deckOption" onClick={this.selectDeckOption.bind(this)}>1</span>
+				<span className="deckOption" onClick={this.selectDeckOption.bind(this)}>2</span>
+				<span className="deckOption" onClick={this.selectDeckOption.bind(this)}>4</span>
+				<span className="deckOption" onClick={this.selectDeckOption.bind(this)}>6</span>
+				<span className="deckOption" onClick={this.selectDeckOption.bind(this)}>8</span>
+			</div>
 		);
 	}
 }
