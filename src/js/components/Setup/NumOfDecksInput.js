@@ -4,18 +4,19 @@ export default class NumOfDecksInput extends React.Component {
 
 	selectDeckOption = (e) => {
 		 
-		 const selected = e.target.innerHTML;
-		 this.props.setNumOfDecks(selected);
+		const selected = e.target.innerHTML;
+		this.props.setNumOfDecks(selected);		// change state
 
-		 const options = document.getElementsByClassName("deckOption");
-		 for (var i = options.length - 1; i >= 0; i--) {
+		const options = document.getElementsByClassName("deckOption");
+		for (var i = options.length - 1; i >= 0; i--) {		// toggle class
 		 	if (options[i] !== e.target) {
 		 		options[i].classList.remove("selected");
 		 	}
 		 	else {
 		 		options[i].classList.add("selected");
 		 	}
-		 }
+		}
+		
 	}
 
 	render() {
