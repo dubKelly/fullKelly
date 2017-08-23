@@ -96,26 +96,57 @@ export default class Setup extends React.Component {
 
 
 		const dealCards = () => {
-
 			const cardsDealt = [];
 		
-			const renderCard = (card, interval) => {
+			const renderCard = (card, index) => {
 				setTimeout(() => {
 					cardsDealt.push(card);
 					this.props.setCardsDealt(cardsDealt);			
-				}, 1000 * interval);
+				}, 300 * index);
 			}
 
 			for (var i = 0; i < ((numOfPlayers + 1) * 2); i++) {		// Deal two cards to each player and dealer
-				const randomIndex = Math.floor(Math.random() * deck.length); 
+				const randomIndex = Math.floor(Math.random() * deck.length);		// produces numbers 0 to length - 1
+				console.log(randomIndex);
 				const dealtCard = deck.splice(randomIndex, 1);
-				const renderedCard = <div
+				const dealtCardElem = <div
 					key={dealtCard[0].key}
-					className={dealtCard[0].className}
+					className={dealtCard[0].className + " index" + i}		// indexi for styling pos of card
 					data-points={dealtCard[0].points}
 				></div>
-				renderCard(renderedCard, i);
+
+				renderCard(dealtCardElem, i);
 			}
+
+			let zeros = 0;
+			let ones = 0;
+			let twos = 0;
+			let threes = 0;
+			let fours = 0;
+			let fives = 0;
+
+			for (var i = 0; i <= 1000000; i++) {
+				const random = Math.floor(Math.random() * 5);
+				if (random === 0) {
+					zeros++;
+				}
+				if (random === 1) {
+					ones++;
+				}
+				if (random === 2) {
+					twos++;
+				}
+				if (random === 3) {
+					threes++;
+				}
+				if (random === 4) {
+					fours++;
+				}
+				if (random === 5) {
+					fives++;
+				}
+			}
+			console.log(100/(1000000/zeros), 100/(1000000/ones), 100/(1000000/twos), 100/(1000000/threes), 100/(1000000/fours), 100/(1000000/fives));
 		}
 		dealCards();
 	}
