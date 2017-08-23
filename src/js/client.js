@@ -10,7 +10,8 @@ class Layout extends React.Component {
 		this.state = {
 
 			/* Game Setup */
-			numOfDecks: "1",
+			numOfDecks: 1,
+			numOfPlayers: 1,
 			deck: [],
 			cardsDealt: []
 		};
@@ -19,11 +20,9 @@ class Layout extends React.Component {
 	setNumOfDecks(numOfDecks) {
 		this.setState({numOfDecks});
 	}
-
 	setDeck(deck) {
 		this.setState({deck});
 	}
-
 	setCardsDealt(cardsDealt) {
 		this.setState({cardsDealt})
 	}
@@ -35,6 +34,7 @@ class Layout extends React.Component {
 				<Setup 
 					numOfDecks={this.state.numOfDecks}
 					setNumOfDecks={this.setNumOfDecks.bind(this)}
+					numOfPlayers={this.state.numOfPlayers}
 					deck={this.state.deck}
 					setDeck={this.setDeck.bind(this)}
 					cardsDealt={this.state.cardsDealt}

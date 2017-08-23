@@ -21,14 +21,14 @@ export default class Setup extends React.Component {
 	}
 
 	startGame = (event) => {
-
 		event.preventDefault();
 
 		/* Generate Deck */
 
 		let deck = [];
 		const numOfDecks = this.props.numOfDecks;
-		let suits = ["Clubs", "Spades", "Hearts", "Diamonds"];
+		const numOfPlayers = this.props.numOfPlayers;
+		const suits = ["Clubs", "Spades", "Hearts", "Diamonds"];
 		const faces = ["Jack", "Queen", "King", "Ace"];
 		const pipValues = ["two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 
@@ -37,20 +37,20 @@ export default class Setup extends React.Component {
 
 		const createPipCards = () => {
 			for (var i = 0; i < (36 * numOfDecks); i++) {
-				let key = pipValues[pipIndex] + "_" + (i + 1);
-				let className = "card " + pipValues[pipIndex] + suits[index];
-				let points = pipIndex + 2;
-				let card = {
-					key: key,
-					className: className,
-					points: points
-				}
-
 				if (i % 4 === 0) {		// reset suits
 					index = 0;
 				}
 				if (i % 9 === 0) {		// reset pipValues
 					pipIndex = 0;
+				}
+
+				const key = pipValues[pipIndex] + "_" + (i + 1);
+				const className = "card " + pipValues[pipIndex] + suits[index];
+				const points = pipIndex + 2;
+				const card = {
+					key: key,
+					className: className,
+					points: points
 				}
 
 				deck.push(card);
@@ -62,13 +62,14 @@ export default class Setup extends React.Component {
 
 		const createFaceCards = () => {
 			for (var i = 0; i < ((faces.length * 4) * numOfDecks); i++) {
-				let key = faces[index] + "_" + (i + 1);
-				let className = "card " + faces[index] + suits[index];
-
 				if (i % 4 === 0) {		// reset suits && faces
 					index = 0;
 					suits.push(suits.shift());		// shuffle suits
 				}
+
+				const key = faces[index] + "_" + (i + 1);
+				let className = "card " + faces[index] + suits[index];
+
 				if (faces[index] !== "Ace") {
 					let card = {
 						key: key,
@@ -93,14 +94,29 @@ export default class Setup extends React.Component {
 
 		this.props.setDeck(deck);
 
-		/* Deal Cards */
 
-		setTimeout(() => {
-		const dealtCard = deck.pop();
-		let renderedCard = <div 
-			className={dealtCard.className}
-		>Whoa!</div>
-		this.props.setCardsDealt(renderedCard);			
-		}, 2000);
+		const dealCards = () => {
+
+			const cardsDealt = [];
+		
+			const renderCard = (card, interval) => {
+				setTimeout(() => {
+					cardsDealt.push(card);
+					this.props.setCardsDealt(cardsDealt);			
+				}, 1000 * interval);
+			}
+
+			for (var i = 0; i < ((numOfPlayers + 1) * 2); i++) {		// Deal two cards to each player and dealer
+				const randomIndex = Math.floor(Math.random() * deck.length); 
+				const dealtCard = deck.splice(randomIndex, 1);
+				const renderedCard = <div
+					key={dealtCard[0].key}
+					className={dealtCard[0].className}
+					data-points={dealtCard[0].points}
+				></div>
+				renderCard(renderedCard, i);
+			}
+		}
+		dealCards();
 	}
 }
