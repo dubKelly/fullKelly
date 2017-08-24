@@ -8,11 +8,11 @@ export default class Setup extends React.Component {
 	render() {
 		return (
 			<form>
-				<NumOfDecksInput 
+				<NumOfDecksInput
 					numOfDecks={this.props.numOfDecks}
 					setNumOfDecks={this.props.setNumOfDecks}
 				/>
-				<input 
+				<input
 					type="submit"
 					onClick={this.startGame}
 				/>
@@ -34,6 +34,8 @@ export default class Setup extends React.Component {
 
 		let index = 0;		// faces && suits
 		let pipIndex = 0;
+
+		/* Create Pip Cards */
 
 		const createPipCards = () => {
 			for (var i = 0; i < (36 * numOfDecks); i++) {
@@ -59,6 +61,8 @@ export default class Setup extends React.Component {
 			}
 		}
 		createPipCards();
+
+		/* Create Face Cards */
 
 		const createFaceCards = () => {
 			for (var i = 0; i < ((faces.length * 4) * numOfDecks); i++) {
@@ -88,19 +92,21 @@ export default class Setup extends React.Component {
 					deck.push(card);
 				}
 				index++;
-			}	
+			}
 		}
 		createFaceCards();
 
 		this.props.setDeck(deck);
 
+		/* Deal Initial Cards */
+
 		const dealCards = () => {
 			const cardsDealt = [];
-		
+
 			const renderCard = (card, index) => {
 				setTimeout(() => {
 					cardsDealt.push(card);
-					this.props.setCardsDealt(cardsDealt);			
+					this.props.setCardsDealt(cardsDealt);
 				}, 300 * index);
 			}
 

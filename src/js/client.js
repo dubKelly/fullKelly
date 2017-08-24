@@ -28,10 +28,9 @@ class Layout extends React.Component {
 	}
 
 	render() {
-		console.log(this.state);
 		return (
 			<div>
-				<Setup 
+				<Setup
 					numOfDecks={this.state.numOfDecks}
 					setNumOfDecks={this.setNumOfDecks.bind(this)}
 					numOfPlayers={this.state.numOfPlayers}
@@ -40,7 +39,7 @@ class Layout extends React.Component {
 					cardsDealt={this.state.cardsDealt}
 					setCardsDealt={this.setCardsDealt.bind(this)}
 				/>
-				<Game 
+				<Game
 					numOfDecks={this.state.numOfDecks}
 					deck={this.state.deck}
 					cardsDealt={this.state.cardsDealt}
