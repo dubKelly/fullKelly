@@ -107,9 +107,28 @@ export default class Setup extends React.Component {
 			for (var i = 0; i < ((numOfPlayers + 1) * 2); i++) {		// Deal two cards to each player and dealer
 				const randomIndex = Math.floor(Math.random() * deck.length);		// produces numbers 0 to length - 1
 				const dealtCard = deck.splice(randomIndex, 1);
+				let cardPosition = "";
+
+				if (Number.isInteger(i / 2) === true || Number.isInteger(i / 2) === NaN) {
+					if (i === 0) {
+						cardPosition = " player_" + (i + 1);
+					}
+					else {
+						cardPosition = " player_" + i;
+					}
+				}
+				else {
+					if (i === 3) {
+						cardPosition = " dealer_" + (i - 1);
+					}
+					else {
+						cardPosition = " dealer_" + i;
+					}
+				}
+
 				const dealtCardElem = <div
 					key={dealtCard[0].key}
-					className={dealtCard[0].className + " index" + i}		// indexi for styling pos of card
+					className={dealtCard[0].className + cardPosition}		// indexi for styling pos of card
 					data-points={dealtCard[0].points}
 				></div>
 
