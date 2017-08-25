@@ -115,7 +115,7 @@ export default class Setup extends React.Component {
 				const dealtCard = deck.splice(randomIndex, 1);
 				let cardPosition = "";
 
-				if (Number.isInteger(i / 2) === true || Number.isInteger(i / 2) === NaN) {
+				if (Number.isInteger(i / 2) === true || Number.isInteger(i / 2) === NaN) {		// Set class for styling absolute position
 					if (i === 0) {
 						cardPosition = " player_" + (i + 1);
 					}
@@ -134,7 +134,7 @@ export default class Setup extends React.Component {
 
 				const dealtCardElem = <div
 					key={dealtCard[0].key}
-					className={dealtCard[0].className + cardPosition}		// indexi for styling pos of card
+					className={dealtCard[0].className + cardPosition}
 					data-points={dealtCard[0].points}
 				></div>
 
